@@ -3,16 +3,14 @@ from fastapi.middleware.cors import CORSMiddleware
 import pandas as pd
 import io
 
-# Import both engines!
 from core.deterministic import run_deterministic_match
 from core.agent import run_agentic_match
 
 app = FastAPI(title="ReconAgent Core API")
 
-# 1. Update CORS to allow Vite's default ports
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173", "http://127.0.0.1:5173"],
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -36,14 +34,12 @@ async def reconcile_data(
     except Exception as e:
         raise HTTPException(status_code=400, detail=f"Failed to parse CSV files: {str(e)}")
 
-    # Execute Pass 1: Deterministic Engine (Filters the easy 80%)
     auto_matched, unmatched_ledger, unmatched_bank = run_deterministic_match(
         ledger_df=ledger_df,
         bank_df=bank_df,
         date_tolerance_days=3
     )
 
-    # Execute Pass 2: Agentic Engine (Gemini reasons over the hard 20%)
     agent_results = run_agentic_match(
         unmatched_ledger=unmatched_ledger,
         unmatched_bank=unmatched_bank
@@ -53,7 +49,6 @@ async def reconcile_data(
     matched_count = len(auto_matched)
     match_rate = round((matched_count / total_ledger) * 100, 2) if total_ledger > 0 else 0
 
-    # 3. Format the final JSON exactly how the React UI expects it
     return {
         "status": "success",
         "metrics": {
