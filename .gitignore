@@ -1,0 +1,10 @@
+# Frontend
+recon-agent-be/node_modules/
+recon-agent-be/dist/
+recon-agent-be/.env.local
+recon-agent-be/.env
+
+# Backend
+recon-agent-fe/__pycache__/
+recon-agent-fe/venv/
+recon-agent-fe/.venv/

@@ -1,0 +1,51 @@
+<svg
+  width="46"
+  height="46"
+  viewBox="0 0 46 46"
+  xmlns="http://www.w3.org/2000/svg"
+  role="img"
+  aria-label="RA button"
+>
+  <defs>
+    <filter
+      id="shadow"
+      x="-30%"
+      y="-30%"
+      width="160%"
+      height="180%"
+      filterUnits="objectBoundingBox"
+    >
+      <feDropShadow
+        dx="0"
+        dy="4"
+        stdDeviation="7"
+        flood-color="#000000"
+        flood-opacity="0.16"
+      />
+    </filter>
+  </defs>
+
+  <!-- White circular button -->
+  <circle
+    cx="23"
+    cy="23"
+    r="23"
+    fill="#FFFFFF"
+    filter="url(#shadow)"
+  />
+
+  <!-- RA -->
+  <text
+    x="23"
+    y="23"
+    text-anchor="middle"
+    dominant-baseline="central"
+    fill="#000000"
+    font-size="18"
+    font-weight="400"
+    letter-spacing="-0.8"
+    font-family="Arial, Helvetica, sans-serif"
+  >
+    RA
+  </text>
+</svg>
